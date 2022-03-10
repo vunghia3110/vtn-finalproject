@@ -10,6 +10,7 @@ import ConnectedIntlProvider from './modules/intl/component/ConnectedIntlProvide
 import { setLocale } from './modules/intl/redux/intlReducer';
 import configureStore, { history } from './redux/configureStore';
 import reportWebVitals from './reportWebVitals';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 smoothscroll.polyfill();
 
@@ -23,7 +24,9 @@ ReactDOM.render(
       <PersistGate loading={null} persistor={persistor}>
         <ConnectedRouter history={history}>
           <ConnectedIntlProvider>
-            <App />
+            <StyledEngineProvider>
+              <App />
+            </StyledEngineProvider>
           </ConnectedIntlProvider>
         </ConnectedRouter>
       </PersistGate>

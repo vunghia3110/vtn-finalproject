@@ -25,14 +25,14 @@ const LoginPage = () => {
     async (values: ILoginParams) => {
       setErrorMessage('');
       setLoading(true);
-
+      console.log('a')
       const json = await dispatch(
         fetchThunk(API_PATHS.signIn, 'post', { email: values.email, password: values.password }),
       );
-
+      console.log(json)
       setLoading(false);
 
-      if (json?.code === RESPONSE_STATUS_SUCCESS) {
+      if (json?.success === true) {
         dispatch(setUserInfo(json.data));
         Cookies.set(ACCESS_TOKEN_KEY, json.data.token, { expires: values.rememberMe ? 7 : undefined });
         dispatch(replace(ROUTES.home));
@@ -55,8 +55,6 @@ const LoginPage = () => {
         flexDirection: 'column',
       }}
     >
-      <img src={logo} alt="" style={{ maxWidth: '250px', margin: '32px' }} />
-
       <LoginForm onLogin={onLogin} loading={loading} errorMessage={errorMessage} />
     </div>
   );

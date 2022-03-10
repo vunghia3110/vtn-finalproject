@@ -2,6 +2,12 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ILoginParams, ILoginValidation } from '../../../models/auth';
 import { validateLogin, validLogin } from '../utils';
+import ReactDOM from 'react-dom';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import CircularIndeterminate from '../../layout/components/CircleLoading'
+
 
 interface Props {
   onLogin(values: ILoginParams): void;
@@ -29,14 +35,17 @@ const LoginForm = (props: Props) => {
 
   return (
     <form
-      style={{ maxWidth: '560px', width: '100%' }}
+      style={{ maxWidth: '560px', width: '100%', backgroundColor: '#ddd', padding: '10px', borderRadius: '10px' }}
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit();
       }}
-      className="row g-3 needs-validation"
+      className="row g-3 needs-validation shadow p-3 mb-5 rounded"
     >
+      <Typography variant="h2" textAlign={"center"}>
+        <FormattedMessage id="register" />
+      </Typography>
       {!!errorMessage && (
         <div className="alert alert-danger" role="alert" style={{ width: '100%' }}>
           {errorMessage}
@@ -54,7 +63,6 @@ const LoginForm = (props: Props) => {
           value={formValues.email}
           onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
         />
-
         {!!validate?.email && (
           <small className="text-danger">
             <FormattedMessage id={validate?.email} />
@@ -99,15 +107,16 @@ const LoginForm = (props: Props) => {
 
       <div className="row justify-content-md-center" style={{ margin: '16px 0' }}>
         <div className="col-md-auto">
-          <button
-            className="btn btn-primary"
+          <Button 
+            variant="contained"
             type="submit"
             style={{ minWidth: '160px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             disabled={loading}
           >
-            {loading && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />}
-            <FormattedMessage id="register" />
-          </button>
+              {/* {loading && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />} */}
+              {loading && <CircularIndeterminate />}
+              <FormattedMessage id="register" />
+          </Button>
         </div>
       </div>
     </form>
