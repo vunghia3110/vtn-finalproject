@@ -23,6 +23,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import NestedList from "./NestedList"
+import { makeStyles } from '@mui/styles';
 
 const drawerWidth = 240;
 
@@ -94,8 +95,24 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 }));
 
-export default function MiniDrawer() {
+const useStyles = makeStyles({
+  list: {
+    background: "#323259"
+  },
+  divider: {
+    color: "black",
+    borderBottomWidth: 2,
+  },
+  paper: {
+    background: "#323259"
+  },
+});
+
+interface Props {}
+// const NavBar: FC<Props> = ({ children }) => {}
+const LayoutForm: React.FC<Props> = ({ children }) => {
   const theme = useTheme();
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -173,7 +190,7 @@ export default function MiniDrawer() {
       </AppBar>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} classes={{ paper: classes.paper }}>
           <DrawerHeader>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -183,32 +200,16 @@ export default function MiniDrawer() {
           <List>
             <NestedList />
           </List>
-          <Divider />
+          <Divider classes={{ root: classes.divider }}/>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
           <DrawerHeader />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum facilisis leo vel. Risus at ultrices mi
-            tempus imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id
-            interdum velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl
-            suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras. Metus
-            vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt.
-            Cras tincidunt lobortis feugiat vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-            lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla facilisi etiam
-            dignissim diam. Pulvinar elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi
-            lacus sed viverra tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra
-            accumsan in. In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-            tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin nibh sit. Ornare
-            aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-            posuere sollicitudin aliquam ultrices sagittis orci a.
-          </Typography>
+          {children}
         </Box>
       </Box>
     </div>
   );
 }
+
+export default LayoutForm;
+

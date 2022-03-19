@@ -16,9 +16,11 @@ const UsersBody = () => {
     {/* <MenuAppBar /> */}
     {/* <Sidebar /> */}
     {/* <MiniDrawer /> */}
-    <LayoutForm />
+    <LayoutForm>
+      <UsersTable />
+    </LayoutForm>
     {/* <SideBarModel /> */}
-    <UsersTable />
+    
   </div>
 }
 

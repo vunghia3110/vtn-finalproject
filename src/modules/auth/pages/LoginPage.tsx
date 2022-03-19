@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
-import logo from '../../../logo-420-x-108.png';
 import { ILoginParams } from '../../../models/auth';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -25,17 +24,17 @@ const LoginPage = () => {
     async (values: ILoginParams) => {
       setErrorMessage('');
       setLoading(true);
-      console.log('a')
       const json = await dispatch(
         fetchThunk(API_PATHS.signIn, 'post', { email: values.email, password: values.password }),
       );
-      console.log(json)
+      console.log(json);
       setLoading(false);
 
       if (json?.success === true) {
         dispatch(setUserInfo(json.data));
-        Cookies.set(ACCESS_TOKEN_KEY, json.data.token, { expires: values.rememberMe ? 7 : undefined });
-        dispatch(replace(ROUTES.home));
+        // Cookies.set(ACCESS_TOKEN_KEY, json.data.token, { expires: values.rememberMe ? 7 : undefined });
+        Cookies.set(ACCESS_TOKEN_KEY, json.user_cookie, { expires: values.rememberMe ? 7 : undefined });
+        dispatch(replace(ROUTES.products));
         return;
       }
 

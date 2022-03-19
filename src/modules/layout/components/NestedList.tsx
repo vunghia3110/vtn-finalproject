@@ -57,7 +57,7 @@ export default function NestedList() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      sx={{ width: '100%', maxWidth: 360, bgcolor: '#323259' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
@@ -65,16 +65,16 @@ export default function NestedList() {
         return (
           <Box key={index}>
             <ListItemButton onClick={() => {handleClick(index)}}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
-              {item.open ? <ExpandMore /> : <KeyboardArrowLeftOutlinedIcon />}
+              <ListItemIcon sx={{color: '#fff'}}>{item.icon}</ListItemIcon>
+              <ListItemText sx={{color: '#fff'}} primary={item.name} />
+              {item.open ? <ExpandMore sx={{color: '#fff'}} /> : <KeyboardArrowLeftOutlinedIcon sx={{color: '#fff'}} />}
             </ListItemButton>
             <Collapse in={item.open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {item.children.map((childItem, index) => {
                   return (
                     <ListItemButton sx={{ pl: 9 }} key={index}>
-                      <ListItemText primary={childItem.name} />
+                      <ListItemText sx={{color: '#fff'}} primary={childItem.name} />
                     </ListItemButton>
                   );
                 })}
