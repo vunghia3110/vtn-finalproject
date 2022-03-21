@@ -19,4 +19,6 @@ export const API_PATHS = {
   userProfile: `${getBaseUrl(APIService.public)}/user`,
   getProduct: `${getBaseUrl(APIService.public)}/products/list`,
   getCategories: `${getBaseUrl(APIService.public)}/categories/list`,
+  getUsers: `${getBaseUrl(APIService.auth)}/users/list
+  `,
 };

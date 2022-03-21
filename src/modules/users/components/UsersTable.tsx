@@ -1,23 +1,45 @@
-import React from "react";
-// import { Table } from "@mui/material";
-import ProductItem from "../../products/components/ProductItem"
+import { Table, TableBody, TableContainer } from '@mui/material';
+import React, { useState } from 'react';
+import { User } from '../../../models/user';
+import TableHeader from './TableHeader';
+import UserItem from './UserItem';
 
-const UsersTable = () => {
-  return <div>
-    This is Table of Users
-    <ProductItem data={
-            {
-              id: "2008",
-              sku: "ss-1252",
-              price: "34.0000",
-              arrivalDate: "1579910400",
-              name: "360 Degree Tripod Head Panoramic Clamp Aluminum Adapter change",
-              vendor: "hello@saltlight.solutions",
-              amount: "238",
-              category: "",
-          }
-        } onCheckBox = {() => {}} />
-    </div>
+type Order = 'asc' | 'desc';
+
+interface Props {
+  tableData: User[];
+  handleCheckAll(check: boolean): void;
+  handleCheckBox(id: string): void;
 }
 
-export default UsersTable
+const UsersTable = (props: Props) => {
+  const { tableData, handleCheckAll, handleCheckBox } = props;
+  const [fieldSort, setFieldSort] = useState('');
+  const [orderSort, setOrderSort] = useState<Order>('asc');
+
+  const handleSort = (name: string) => {
+    const isAsc = fieldSort === name && orderSort === 'asc';
+    setOrderSort(isAsc ? 'desc' : 'asc');
+    setFieldSort(name);
+  };
+
+  return (
+    <TableContainer sx={{ marginTop: '20px', backgroundColor: '#323259', width: '100%'}}>
+      <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={'medium'}>
+        <TableHeader
+          fieldSort={fieldSort}
+          orderSort={orderSort}
+          handleSort={handleSort}
+          handleCheckAll={handleCheckAll}
+        />
+        <TableBody>
+          {tableData?.map((item) => (
+            <UserItem key={item.profile_id} data={item} onCheckBox={handleCheckBox} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+
+export default UsersTable;

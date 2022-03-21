@@ -17,7 +17,11 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import { Box } from '@mui/system';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 
-export default function NestedList() {
+interface Props {
+  onChangeRoute(text: string): void
+}
+export default function NestedList(props: Props) {
+  const { onChangeRoute } = props;
   const [open, setOpen] = React.useState(false);
   const [openList, setOpenList] = React.useState([
     {
@@ -74,7 +78,7 @@ export default function NestedList() {
                 {item.children.map((childItem, index) => {
                   return (
                     <ListItemButton sx={{ pl: 9 }} key={index}>
-                      <ListItemText sx={{color: '#fff'}} primary={childItem.name} />
+                      <ListItemText sx={{color: '#fff'}} primary={childItem.name} onClick={(e) => {onChangeRoute(e.currentTarget.innerText)}} />
                     </ListItemButton>
                   );
                 })}

@@ -24,6 +24,13 @@ import Menu from '@mui/material/Menu';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import NestedList from "./NestedList"
 import { makeStyles } from '@mui/styles';
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../../../redux/reducer';
+import { Action } from 'redux';
+import { ACCESS_TOKEN_KEY } from '../../../utils/constants';
+import { ROUTES } from '../../../configs/routes';
+import { replace } from 'connected-react-router';
 
 const drawerWidth = 240;
 
@@ -111,6 +118,7 @@ const useStyles = makeStyles({
 interface Props {}
 // const NavBar: FC<Props> = ({ children }) => {}
 const LayoutForm: React.FC<Props> = ({ children }) => {
+  const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>();
   const theme = useTheme();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -131,6 +139,15 @@ const LayoutForm: React.FC<Props> = ({ children }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChangeRoute = (text: string) => {
+    if(text === 'Product') {
+      dispatch(replace(ROUTES.products));
+    }
+    else if( text === 'User List') {
+      dispatch(replace(ROUTES.users));
+    }
   };
 
   return (
@@ -198,7 +215,7 @@ const LayoutForm: React.FC<Props> = ({ children }) => {
           </DrawerHeader>
           {/* <Divider /> */}
           <List>
-            <NestedList />
+            <NestedList onChangeRoute={handleChangeRoute} />
           </List>
           <Divider classes={{ root: classes.divider }}/>
         </Drawer>

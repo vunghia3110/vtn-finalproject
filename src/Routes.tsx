@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { ROUTES } from './configs/routes';
 import ProtectedRoute from './modules/common/components/ProtectedRoute';
-import UsersBody from './modules/users/components/UsersBody';
 import EnhancedTable from './modules/users/components/UsersTable';
 import LinearLoading from './modules/layout/components/LinearLoading'
 

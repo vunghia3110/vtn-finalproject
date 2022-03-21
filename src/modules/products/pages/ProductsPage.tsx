@@ -87,9 +87,9 @@ const ProductsListPage = () => {
   return (
     <LayoutForm>
       <CssBaseline />
-      <div style={{ width: '100vw', backgroundColor: '#1b1b38' }}>
-        <Container maxWidth="lg" sx={{ padding: '16px' }}>
-          <Typography sx={{ color: 'white' }}>Products</Typography>
+      <div style={{ width: '100vw', backgroundColor: '#1b1b38', display: 'flex', flexDirection: 'column', justifyContent: 'center'  }}>
+        <Container maxWidth="lg" sx={{ padding: '16px'}}>
+          <Typography variant='h4' sx={{ color: 'white' }}>Products</Typography>
           <ProductsFilter handleFilter={handleFilter} />
           <div style={{ height: '40px', margin: '20px 0px' }}>
             <Button
